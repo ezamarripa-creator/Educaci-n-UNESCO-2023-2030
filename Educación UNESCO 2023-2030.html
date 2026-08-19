@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+
+    <script>
+    (function() {
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+      
+       document.addEventListener('keydown', function(e) {
+            const key = e.key.toLowerCase();
+            if ((e.ctrlKey && (key === 'u' || key === 's' || key === 'c' || key === 'i' || key === 'j')) ||
+                (e.ctrlKey && e.shiftKey && (key === 'i' || key === 'j' || key === 'c')) ||
+                e.key === 'F12') {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        let devtoolsTriggered = false;
+        setInterval(function() {
+            if (devtoolsTriggered) return;
+            const before = new Date();
+            debugger; 
+            const after = new Date();
+            if (after - before > 100) { 
+                devtoolsTriggered = true;
+                document.body.innerHTML = '<div style="text-align:center; padding:50px; font-family:sans-serif;"><h1 style="color:#042C53;">⚠️ Acceso no autorizado</h1><p>El uso de herramientas de desarrollo no está permitido en este recurso institucional.</p><p style="font-size:14px; margin-top:30px;">🔒 COBAED · Dirección Académica</p></div>';
+            }
+        }, 2000);
+        
+        const style = document.createElement('style');
+        style.textContent = `body { user-select: none; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; }`;
+        document.head.appendChild(style);
+    })();
+    </script>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Informe GEM 2023 · UNESCO — Tecnología y Educación | COBAED</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root{
+    --ink:#1C1B18;
+    --paper:#FAF7F2;
+    --cream:#F1EADB;
+    --beige:#E4D8C3;
+    --stone:#8B8072;
+    --earth:#6B4A34;
+    --earth-dark:#4A3223;
+    --blue:#4A6670;
+    --green:#77836A;
+    --line: rgba(28,27,24,0.12);
+    --radius: 2px;
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+
+  html{scroll-behavior:smooth;}
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Inter', sans-serif;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  h1,h2,h3{font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.01em;}
+
+  .mono{font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; text-transform:uppercase;}
+
+  a{color:inherit;}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,247,242,0.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-wrap{
+    max-width:1180px; margin:0 auto; padding:16px 32px;
+    display:flex; align-items:center; justify-content:space-between; gap:24px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:12px;
+  }
+  .brand-mark{
+    width:34px; height:34px; border:1.5px solid var(--ink);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Fraunces',serif; font-weight:600; font-size:16px;
+  }
+  .brand-text{display:flex; flex-direction:column; line-height:1.15;}
+  .brand-text strong{font-size:13px; letter-spacing:0.03em;}
+  .brand-text span{font-size:10.5px; color:var(--stone);}
+
+  nav ul{list-style:none; display:flex; gap:28px;}
+  nav a{
+    font-size:12.5px; text-decoration:none; color:var(--ink);
+    font-family:'IBM Plex Mono',monospace; letter-spacing:0.03em;
+    text-transform:uppercase; opacity:0.72; transition:opacity .2s, border-color .2s;
+    padding-bottom:4px; border-bottom:1px solid transparent;
+  }
+  nav a:hover, nav a.active{opacity:1; border-color:var(--earth);}
+  .nav-toggle{display:none;}
+
+  @media(max-width:840px){
+    nav ul{
+      position:fixed; inset:56px 0 auto 0; background:var(--paper);
+      flex-direction:column; padding:20px 32px; gap:16px;
+      border-bottom:1px solid var(--line);
+      transform:translateY(-8px); opacity:0; pointer-events:none;
+      transition:all .25s ease;
+    }
+    nav ul.open{transform:translateY(0); opacity:1; pointer-events:auto;}
+    .nav-toggle{
+      display:block; background:none; border:1px solid var(--ink);
+      width:34px; height:34px; cursor:pointer; font-family:'IBM Plex Mono',monospace;
+    }
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    max-width:1180px; margin:0 auto; padding:88px 32px 64px;
+    display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:end;
+    border-bottom:1px solid var(--line);
+  }
+  .eyebrow{
+    font-size:12px; color:var(--earth); margin-bottom:22px; display:flex; align-items:center; gap:10px;
+  }
+  .eyebrow::before{content:''; width:26px; height:1px; background:var(--earth);}
+  .hero h1{
+    font-size:clamp(34px,4.6vw,58px); line-height:1.04; max-width:12ch;
+  }
+  .hero h1 em{font-style:italic; color:var(--earth);}
+  .hero-side p{font-size:15.5px; color:#3c3a35; max-width:46ch; margin-bottom:20px;}
+  .doi-tag{
+    display:inline-flex; gap:8px; font-size:11.5px; color:var(--stone);
+    border-top:1px solid var(--line); padding-top:14px; margin-top:8px;
+  }
+
+  @media(max-width:840px){
+    .hero{grid-template-columns:1fr; padding-top:48px;}
+  }
+
+  /* ---------- SECTION SCAFFOLD ---------- */
+  section{
+    max-width:1180px; margin:0 auto; padding:76px 32px;
+    border-bottom:1px solid var(--line);
+  }
+  .section-head{
+    display:grid; grid-template-columns:220px 1fr; gap:40px; margin-bottom:44px;
+  }
+  .section-num{font-size:11.5px; color:var(--stone);}
+  .section-head h2{font-size:clamp(24px,2.6vw,32px); max-width:16ch;}
+  @media(max-width:760px){ .section-head{grid-template-columns:1fr; gap:12px;} }
+
+  .content-grid{display:grid; grid-template-columns:220px 1fr; gap:40px;}
+  @media(max-width:760px){ .content-grid{grid-template-columns:1fr;} }
+  .content-grid .lead{font-size:17px; max-width:60ch;}
+  .content-grid .lead strong{color:var(--earth-dark); font-weight:600;}
+
+  /* ---------- STAT / RISK CARDS ---------- */
+  .card-row{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); margin-top:36px; border:1px solid var(--line);}
+  .card{background:var(--paper); padding:26px 24px;}
+  .card .tag{font-size:10.5px; color:var(--earth); margin-bottom:12px;}
+  .card p{font-size:14px; color:#37352f;}
+  @media(max-width:760px){ .card-row{grid-template-columns:1fr;} }
+
+  /* ---------- ACCORDION (competencias / medidas) ---------- */
+  .acc-item{border-top:1px solid var(--line);}
+  .acc-item:last-child{border-bottom:1px solid var(--line);}
+  .acc-head{
+    width:100%; text-align:left; background:none; border:0; cursor:pointer;
+    padding:20px 0; display:flex; align-items:center; justify-content:space-between; gap:20px;
+    font-family:'Fraunces',serif; font-size:18px; color:var(--ink);
+  }
+  .acc-head .idx{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--stone); margin-right:16px;}
+  .acc-head .plus{font-family:'IBM Plex Mono',monospace; font-size:16px; color:var(--earth); transition:transform .25s;}
+  .acc-item.open .plus{transform:rotate(45deg);}
+  .acc-body{max-height:0; overflow:hidden; transition:max-height .3s ease;}
+  .acc-body-inner{padding:0 0 22px 40px; font-size:14.5px; color:#3c3a35; max-width:60ch;}
+
+  /* ---------- COMPASS (signature element: las 4 preguntas) ---------- */
+  .compass-wrap{
+    display:flex; justify-content:center; padding:20px 0 10px;
+  }
+  .compass{
+    position:relative; width:min(520px,90vw); aspect-ratio:1/1;
+  }
+  .compass-ring{
+    position:absolute; inset:8%; border:1px solid var(--line); border-radius:50%;
+  }
+  .compass-ring.inner{inset:26%; border-style:dashed;}
+  .compass-center{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    flex-direction:column; text-align:center; pointer-events:none;
+  }
+  .compass-center .mono{font-size:10px; color:var(--stone);}
+  .compass-center strong{font-family:'Fraunces',serif; font-size:16px; max-width:11ch; line-height:1.15; margin-top:6px;}
+  .q-point{
+    position:absolute; width:132px; padding:14px 16px; background:var(--paper);
+    border:1px solid var(--ink); cursor:pointer; transition:background .2s,color .2s;
+  }
+  .q-point:hover, .q-point.active{background:var(--earth); color:var(--paper); border-color:var(--earth);}
+  .q-point .qn{font-family:'IBM Plex Mono',monospace; font-size:10px; opacity:0.7;}
+  .q-point .qt{font-family:'Fraunces',serif; font-size:15px; margin-top:3px;}
+  .q-n{top:0; left:50%; transform:translate(-50%,-50%);}
+  .q-e{top:50%; right:0; transform:translate(50%,-50%);}
+  .q-s{bottom:0; left:50%; transform:translate(-50%,50%);}
+  .q-w{top:50%; left:0; transform:translate(-50%,-50%);}
+  .q-answer{
+    max-width:640px; margin:34px auto 0; padding:20px 26px; border-left:2px solid var(--earth);
+    background:var(--cream); font-size:14.5px; min-height:56px; display:flex; align-items:center;
+  }
+  @media(max-width:600px){
+    .compass{width:100%;}
+    .q-point{width:100px; padding:10px 12px;}
+    .q-point .qt{font-size:12.5px;}
+  }
+
+  /* ---------- MEASURES (medidas anti-distracción) numbered list ---------- */
+  .measure{
+    display:grid; grid-template-columns:64px 1fr; gap:24px; padding:26px 0; border-top:1px solid var(--line);
+  }
+  .measure:last-child{border-bottom:1px solid var(--line);}
+  .measure .num{font-family:'Fraunces',serif; font-size:30px; color:var(--beige); -webkit-text-stroke:1px var(--stone);}
+  .measure h3{font-size:17px; margin-bottom:6px;}
+  .measure p{font-size:14px; color:#3c3a35; max-width:58ch;}
+
+  /* ---------- CONCLUSION ---------- */
+  .conclusion{
+    background:var(--ink); color:var(--paper); border-bottom:none;
+  }
+  .conclusion .section-head h2{color:var(--paper);}
+  .conclusion blockquote{
+    font-family:'Fraunces',serif; font-size:clamp(22px,3vw,32px); line-height:1.3;
+    max-width:22ch; font-weight:500;
+  }
+  .conclusion blockquote em{color:#D9C7A8; font-style:italic;}
+
+  /* ---------- SOURCE / FICHA TÉCNICA ---------- */
+  footer{
+    max-width:1180px; margin:0 auto; padding:56px 32px 60px;
+  }
+  .ficha{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line);
+  }
+  .ficha div{background:var(--paper); padding:20px;}
+  .ficha .k{font-size:10px; color:var(--stone); margin-bottom:8px;}
+  .ficha .v{font-size:13.5px;}
+  .ficha .v a{text-decoration:underline; text-underline-offset:3px;}
+  @media(max-width:760px){ .ficha{grid-template-columns:1fr 1fr;} }
+  .foot-note{margin-top:26px; font-size:11.5px; color:var(--stone); max-width:70ch;}
+
+  ::selection{background:var(--earth); color:var(--paper);}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-wrap">
+    <div class="brand">
+      <div class="brand-mark">C</div>
+      <div class="brand-text">
+        <strong>COBAED</strong>
+        <span>Departamento de Planeación Académica</span>
+      </div>
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú">☰</button>
+    <nav>
+      <ul id="navList">
+        <li><a href="#premisa" class="nav-link">Premisa</a></li>
+        <li><a href="#riesgos" class="nav-link">Riesgos</a></li>
+        <li><a href="#competencias" class="nav-link">Competencias</a></li>
+        <li><a href="#docente" class="nav-link">Docentes</a></li>
+        <li><a href="#recomendaciones" class="nav-link">Recomendaciones</a></li>
+        <li><a href="#medidas" class="nav-link">Medidas</a></li>
+        <li><a href="#fuente" class="nav-link">Fuente</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<section class="hero" style="padding-top:88px;">
+  <div>
+    <div class="eyebrow mono">Resumen ejecutivo</div>
+    <h1>La tecnología en el aula, leída desde <em>Durango</em></h1>
+  </div>
+  <div class="hero-side">
+    <p>Síntesis del <strong>Informe de Seguimiento de la Educación en el Mundo 2023 de la UNESCO</strong>: una lectura crítica y propositiva sobre el papel de la tecnología en la educación media superior, elaborada para la comunidad del Colegio de Bachilleres del Estado de Durango.</p>
+    <div class="doi-tag mono">DOI · 10.54676/BSEH4562</div>
+  </div>
+</section>
+
+<section id="premisa">
+  <div class="section-head">
+    <div class="section-num mono">01 — Premisa</div>
+    <h2>La tecnología como herramienta, no como fin</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <p class="lead">La premisa central del informe es que <strong>la tecnología debe servir a las personas</strong> y centrarse en las necesidades reales de estudiantes y docentes. En el proceso de enseñanza-aprendizaje, la prioridad deben ser los <strong>resultados del aprendizaje</strong>, no el simple aporte tecnológico. La tecnología no debe sustituir la interacción humana: debe complementarla.</p>
+  </div>
+</section>
+
+<section id="riesgos">
+  <div class="section-head">
+    <div class="section-num mono">02 — Riesgos</div>
+    <h2>Impacto en el aprendizaje y riesgos de distracción</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <div>
+      <p class="lead">La evidencia sobre el valor añadido de la tecnología digital en el aula sigue siendo limitada, y buena parte de ella proviene de las mismas empresas que la comercializan.</p>
+      <div class="card-row">
+        <div class="card">
+          <div class="tag mono">Evidencia limitada</div>
+          <p>No abundan pruebas imparciales sobre el valor añadido de la tecnología digital en el aprendizaje.</p>
+        </div>
+        <div class="card">
+          <div class="tag mono">Rendimiento</div>
+          <p>El uso excesivo de las TIC puede tener una relación negativa con los resultados académicos.</p>
+        </div>
+        <div class="card">
+          <div class="tag mono">Distracción</div>
+          <p>La mera presencia de un dispositivo móvil distrae a los estudiantes. Menos de una cuarta parte de los países han prohibido los teléfonos inteligentes en las escuelas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="competencias">
+  <div class="section-head">
+    <div class="section-num mono">03 — Marco</div>
+    <h2>Evolución de las competencias digitales</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <div>
+      <p class="lead" style="margin-bottom:8px;">Para el nivel medio superior, las competencias digitales ya no se limitan a saber usar una computadora. Ahora incluyen cinco ámbitos clave:</p>
+      <div id="accCompetencias">
+        <!-- accordion items injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="ia">
+  <div class="section-head">
+    <div class="section-num mono">04 — Desafío</div>
+    <h2>El desafío de la Inteligencia Artificial</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <p class="lead">La IA generativa plantea que, si las tareas escritas ya no bastan para demostrar el dominio de una competencia, <strong>los métodos de evaluación deben evolucionar</strong>. El informe pide un currículo equilibrado que refuerce las artes y humanidades, para fomentar la responsabilidad, la empatía y la creatividad — capacidades que la IA no puede replicar fácilmente.</p>
+  </div>
+</section>
+
+<section id="docente">
+  <div class="section-head">
+    <div class="section-num mono">05 — Docentes</div>
+    <h2>El papel del docente en la era digital</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <div class="card-row" style="grid-template-columns:repeat(2,1fr); margin-top:0;">
+      <div class="card">
+        <div class="tag mono">Capacitación pedagógica</div>
+        <p>Muchos docentes se sienten poco preparados para integrar la tecnología de forma efectiva. La formación no debe ser solo técnica, sino centrada en su uso con fines educativos.</p>
+      </div>
+      <div class="card">
+        <div class="tag mono">Apoyo y colaboración</div>
+        <p>Las plataformas digitales pueden facilitar redes de docentes para intercambiar materiales y experiencias, como sucede en grupos profesionales dentro de redes sociales.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="recomendaciones">
+  <div class="section-head">
+    <div class="section-num mono">06 — Brújula</div>
+    <h2>Cuatro preguntas antes de adoptar tecnología</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <p class="lead">Para asegurar que la tecnología represente un avance real, el informe propone que el Colegio de Bachilleres — y cualquier institución educativa — se oriente con cuatro preguntas clave antes de su adopción. Toca cada punto de la brújula.</p>
+  </div>
+
+  <div class="compass-wrap">
+    <div class="compass">
+      <div class="compass-ring"></div>
+      <div class="compass-ring inner"></div>
+      <div class="compass-center">
+        <span class="mono">Adopción</span>
+        <strong>tecnológica responsable</strong>
+      </div>
+      <button class="q-point q-n" data-q="apropiada">
+        <div class="qn mono">N</div>
+        <div class="qt">¿Es apropiada?</div>
+      </button>
+      <button class="q-point q-e" data-q="equitativa">
+        <div class="qn mono">E</div>
+        <div class="qt">¿Es equitativa?</div>
+      </button>
+      <button class="q-point q-s" data-q="escalable">
+        <div class="qn mono">S</div>
+        <div class="qt">¿Es escalable?</div>
+      </button>
+      <button class="q-point q-w" data-q="sostenible">
+        <div class="qn mono">O</div>
+        <div class="qt">¿Es sostenible?</div>
+      </button>
+    </div>
+  </div>
+  <div class="q-answer" id="qAnswer">Selecciona una pregunta del compás para ver su criterio.</div>
+</section>
+
+<section id="medidas">
+  <div class="section-head">
+    <div class="section-num mono">07 — Medidas</div>
+    <h2>Reducir la distracción digital en el aula</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <div style="width:100%;">
+      <div class="measure">
+        <div class="num">01</div>
+        <div>
+          <h3>Prohibiciones y regulaciones</h3>
+          <p>Menos de una cuarta parte de los países han prohibido el uso de teléfonos inteligentes en los centros educativos. Países como Italia y Estados Unidos han optado por restringir herramientas digitales o redes sociales específicas dentro de las escuelas.</p>
+        </div>
+      </div>
+      <div class="measure">
+        <div class="num">02</div>
+        <div>
+          <h3>Gestión del tiempo de exposición</h3>
+          <p>Es fundamental que los gobiernos adopten normas sobre el tiempo de conexión y exposición a pantallas. En China, el Ministerio de Educación limita el uso de dispositivos digitales como herramienta educativa a un máximo del <strong>30% del tiempo de enseñanza</strong>.</p>
+        </div>
+      </div>
+      <div class="measure">
+        <div class="num">03</div>
+        <div>
+          <h3>Fortalecimiento del papel docente</h3>
+          <p>Los docentes necesitan formación no solo técnica, sino en cómo integrar la tecnología con fines puramente educativos, evitando que se convierta en una carga o distracción. La supervisión activa complementa la interacción cara a cara sin sustituirla.</p>
+        </div>
+      </div>
+      <div class="measure">
+        <div class="num">04</div>
+        <div>
+          <h3>Enfoque centrado en el estudiante</h3>
+          <p>La adopción de cualquier tecnología debe basarse en pruebas de que realmente mejora el aprendizaje y es apropiada para el contexto local, permitiendo que la tecnología respalde — nunca reemplace — la conexión humana en la que se basa la enseñanza.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="conclusion">
+  <div class="section-head">
+    <div class="section-num mono" style="color:#B8AFA0;">En síntesis</div>
+    <h2>Conclusión</h2>
+  </div>
+  <div class="content-grid">
+    <div></div>
+    <blockquote>El éxito del proceso de enseñanza-aprendizaje no depende de la cantidad de dispositivos, sino de una visión clara donde la tecnología respalde la <em>conexión humana</em> entre docentes y estudiantes.</blockquote>
+  </div>
+</section>
+
+<footer id="fuente">
+  <div class="section-num mono" style="margin-bottom:20px;">Ficha técnica</div>
+  <div class="ficha">
+    <div>
+      <div class="k mono">Título</div>
+      <div class="v">Informe de Seguimiento de la Educación en el Mundo 2023</div>
+    </div>
+    <div>
+      <div class="k mono">Editor</div>
+      <div class="v">Equipo independiente acogido y apoyado por la UNESCO</div>
+    </div>
+    <div>
+      <div class="k mono">Publicación</div>
+      <div class="v">París, Francia — 7, place de Fontenoy 75352 París 07 SP</div>
+    </div>
+    <div>
+      <div class="k mono">DOI</div>
+      <div class="v"><a href="https://doi.org/10.54676/BSEH4562" target="_blank" rel="noopener">10.54676/BSEH4562</a></div>
+    </div>
+    <div>
+      <div class="k mono">Financiamiento</div>
+      <div class="v">Gobiernos, organismos multilaterales y fundaciones privadas</div>
+    </div>
+    <div>
+      <div class="k mono">Disponibilidad</div>
+      <div class="v">Acceso Abierto</div>
+    </div>
+    <div>
+      <div class="k mono">Licencia</div>
+      <div class="v">Creative Commons CC-BY-SA 3.0 IGO</div>
+    </div>
+    <div>
+      <div class="k mono">Uso institucional</div>
+      <div class="v">COBAED · Planeación Académica</div>
+    </div>
+  </div>
+  <p class="foot-note">Síntesis elaborada con fines de difusión institucional dentro del Colegio de Bachilleres del Estado de Durango, con base en el Informe de Seguimiento de la Educación en el Mundo 2023 de la UNESCO. Para el análisis completo, consultar el documento original a través del DOI indicado.</p>
+</footer>
+
+<script>
+  // Mobile nav toggle
+  const navToggle = document.getElementById('navToggle');
+  const navList = document.getElementById('navList');
+  navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  document.querySelectorAll('.nav-link').forEach(l => l.addEventListener('click', () => navList.classList.remove('open')));
+
+  // Active nav via IntersectionObserver
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-40% 0px -50% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Accordion: competencias digitales
+  const competencias = [
+    { t: 'Búsqueda y gestión de información y datos', d: 'Localizar, evaluar y organizar información digital de forma crítica, distinguiendo fuentes confiables y gestionando datos de manera responsable.' },
+    { t: 'Comunicación y colaboración', d: 'Interactuar, compartir y trabajar de forma colaborativa a través de entornos y herramientas digitales, dentro y fuera del aula.' },
+    { t: 'Creación de contenidos digitales', d: 'Producir y editar contenidos propios respetando los derechos de autor y las licencias de uso.' },
+    { t: 'Seguridad', d: 'Proteger la privacidad personal, gestionar la huella digital y reconocer riesgos en entornos conectados.' },
+    { t: 'Resolución de problemas', d: 'Aplicar pensamiento computacional y estrategias digitales para identificar y resolver problemas técnicos y académicos.' },
+  ];
+  const accWrap = document.getElementById('accCompetencias');
+  competencias.forEach((c, i) => {
+    const item = document.createElement('div');
+    item.className = 'acc-item';
+    item.innerHTML = `
+      <button class="acc-head">
+        <span><span class="idx">0${i+1}</span>${c.t}</span>
+        <span class="plus">+</span>
+      </button>
+      <div class="acc-body"><div class="acc-body-inner">${c.d}</div></div>
+    `;
+    accWrap.appendChild(item);
+
+    const head = item.querySelector('.acc-head');
+    const body = item.querySelector('.acc-body');
+    head.addEventListener('click', () => {
+      const isOpen = item.classList.contains('open');
+      accWrap.querySelectorAll('.acc-item').forEach(other => {
+        other.classList.remove('open');
+        other.querySelector('.acc-body').style.maxHeight = null;
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = body.scrollHeight + 'px';
+      }
+    });
+  });
+
+  // Compass: 4 preguntas
+  const qData = {
+    apropiada: '¿Se adapta al contexto local y fortalece los objetivos pedagógicos de la institución?',
+    equitativa: '¿Ayuda a los estudiantes más marginados o, por el contrario, amplía la brecha de desigualdad?',
+    escalable: '¿Existen pruebas de su eficacia y se conocen sus costos totales de mantenimiento a largo plazo?',
+    sostenible: '¿Protege los derechos humanos y el bienestar — como la salud mental frente a las pantallas — a largo plazo?'
+  };
+  const qAnswer = document.getElementById('qAnswer');
+  document.querySelectorAll('.q-point').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.q-point').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      qAnswer.textContent = qData[btn.dataset.q];
+    });
+  });
+</script>
+
+</body>
+</html>
